@@ -1,5 +1,6 @@
 package com.dolphinmobile.moviesapp.domain.model
 
+import com.dolphinmobile.moviesapp.data.local.entity.MovieEntity
 import com.dolphinmobile.moviesapp.data.remote.dto.MovieDTO
 
 data class Movie(
@@ -22,4 +23,11 @@ fun MovieDTO.toDomain() = Movie(
       voteAverage = voteAverage?: 0.0,
       isFavorite = false,
       genres = genres?.map { it.name }?: emptyList()
+)
+
+fun Movie.toEntity() = MovieEntity(
+      id = id,
+      title = title,
+      posterPath = posterPath,
+      releaseDate = releaseDate
 )

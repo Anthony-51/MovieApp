@@ -1,6 +1,6 @@
 package com.dolphinmobile.moviesapp.di
 
-import com.dolphinmobile.moviesapp.data.Constants
+import com.dolphinmobile.moviesapp.util.Constants
 import com.dolphinmobile.moviesapp.data.remote.MovieApi
 import dagger.Module
 import dagger.Provides
@@ -20,7 +20,7 @@ object NetworkModule {
       @Singleton
       fun provideRetrofit(): Retrofit {
             return Retrofit.Builder()
-                  .baseUrl("https://api.themoviedb.org/3/")
+                  .baseUrl(Constants.BASE_URL)
                   .client(provideHttpClient())
                   .addConverterFactory(GsonConverterFactory.create())
                   .build()

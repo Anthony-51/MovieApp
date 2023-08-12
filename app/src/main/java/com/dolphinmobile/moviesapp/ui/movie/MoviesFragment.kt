@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.dolphinmobile.moviesapp.R
 import com.dolphinmobile.moviesapp.databinding.FragmentMoviesBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +41,9 @@ class MoviesFragment : Fragment() {
       }
 
       private fun initAdapter(){
-            adapter = MovieAdapter()
+            adapter = MovieAdapter(viewType = 1){
+                  findNavController().navigate(MoviesFragmentDirections.goToDetail(it))
+            }
             binding.rvMovies.adapter = adapter
       }
 

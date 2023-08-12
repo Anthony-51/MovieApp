@@ -9,12 +9,29 @@
         android:id="@+id/navigation_movies"
         android:name="com.dolphinmobile.moviesapp.ui.movie.MoviesFragment"
         android:label="@string/title_movie"
-        tools:layout="@layout/fragment_movies" />
+        tools:layout="@layout/fragment_movies" >
+        <action
+            android:id="@+id/goToDetail"
+            app:destination="@id/detailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_favorites"
         android:name="com.dolphinmobile.moviesapp.ui.favorites.FavoritesFragment"
         android:label="@string/title_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/goToDetail"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.dolphinmobile.moviesapp.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument android:name="movie_id"
+            app:argType="integer"
+            />
+    </fragment>
 
 </navigation>

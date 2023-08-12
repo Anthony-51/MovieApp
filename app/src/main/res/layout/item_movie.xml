@@ -10,8 +10,8 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_movie"
-            android:layout_width="120dp"
-            android:layout_height="150dp"
+            android:layout_width="140dp"
+            android:layout_height="180dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_foreground"
             android:contentDescription="@string/title_movie"
