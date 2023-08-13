@@ -8,5 +8,5 @@ import javax.inject.Inject
 class AddMovieDB @Inject constructor(
       private val repository: MovieRepository
 ){
-//      operator fun invoke(movie: Movie) = repository.addMovie(movie.toEntity())
+      suspend operator fun invoke(movie: Movie) = repository.addMovie(movie.toEntity())
 }

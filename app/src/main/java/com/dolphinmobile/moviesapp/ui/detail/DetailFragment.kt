@@ -10,7 +10,9 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.dolphinmobile.moviesapp.R
 import com.dolphinmobile.moviesapp.databinding.FragmentDetailBinding
+import com.dolphinmobile.moviesapp.domain.model.Movie
 import com.dolphinmobile.moviesapp.util.Constants
+import com.dolphinmobile.moviesapp.util.DateFormat.formatDate
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,18 +49,48 @@ class DetailFragment : Fragment() {
             }
 
             viewModel.detailState.observe(viewLifecycleOwner){
+                  when (it.isLoading) {
+                        true -> showLoading()
+                        false -> hideLoading()
+                  }
                   if (it.movie != null){
-                        binding.tvTitleMovie.text = it.movie.title
-                        binding.tvOverview.text = it.movie.overview
-                        Glide.with(requireContext()).load("${Constants.IMAGE_URL}${it.movie.posterPath}").into(binding.ivMovie)
-
-                        var genres = ""
-                        it.movie.genres.forEach { genre ->
-                              genres += "$genre - "
-                        }
-                        binding.tvGenres.text = genres
-                        binding.tvDate.text = it.movie.releaseDate
+                        processMovie(it.movie)
                   }
             }
+      }
+
+      private fun processMovie(movie: Movie) {
+            binding.tvTitleMovie.text = movie.title
+            binding.tvOverview.text = movie.overview
+            binding.ivFavorite.isSelected = movie.isFavorite
+            Glide.with(requireContext()).load("${Constants.IMAGE_URL}${movie.posterPath}")
+                  .into(binding.ivMovie)
+            Glide.with(requireContext()).load("${Constants.IMAGE_URL}${movie.posterPath}")
+                  .override(10, 10).into(binding.ivBackground)
+
+            var genres = ""
+            movie.genres.forEachIndexed { index, genre ->
+                  genres += "$genre ${if (index < movie.genres.size - 1) "- " else ""}"
+            }
+            binding.tvGenres.text = genres
+            binding.tvDate.text = movie.releaseDate.formatDate("dd MMMM yyyy")
+      }
+
+
+      private fun showLoading() {
+            binding.progress.visibility = View.VISIBLE
+            binding.clHeader.visibility = View.GONE
+            binding.clBody.visibility = View.GONE
+      }
+
+      private fun hideLoading() {
+            binding.progress.visibility = View.GONE
+            binding.clHeader.visibility = View.VISIBLE
+            binding.clBody.visibility = View.VISIBLE
+      }
+
+      override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
       }
 }

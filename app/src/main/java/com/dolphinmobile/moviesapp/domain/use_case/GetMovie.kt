@@ -12,9 +12,10 @@ class GetMovie @Inject constructor(
 ){
       operator fun invoke(movieId: Int) = flow {
             emit(ResourceState.Loading)
+            val movieDB = repository.getFavoriteMovieById(movieId)
             when (val response = repository.getMovieById(movieId)){
                   is Response.Success -> {
-                        emit(ResourceState.Success(response.data.toDomain()))
+                        emit(ResourceState.Success(response.data.toDomain(movieDB != null)))
                   }
                   is Response.Error -> {
                         emit(ResourceState.Error(response.msg, response.code))

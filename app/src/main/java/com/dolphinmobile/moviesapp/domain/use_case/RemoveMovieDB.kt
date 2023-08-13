@@ -8,5 +8,5 @@ import javax.inject.Inject
 class RemoveMovieDB @Inject constructor(
   private val repository: MovieRepository
 ){
-//  operator fun invoke(movie: Movie) = repository.removeMovie(movie.toEntity())
+  suspend operator fun invoke(movie: Movie) = repository.removeMovie(movie.toEntity())
 }

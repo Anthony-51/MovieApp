@@ -6,16 +6,20 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.dolphinmobile.moviesapp.data.local.entity.MovieEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
 
       @Query("SELECT * FROM movies")
-      fun getMovies(): List<MovieEntity>
+      fun getMovies(): Flow<List<MovieEntity>>
 
       @Insert(onConflict = OnConflictStrategy.REPLACE)
-       fun addMovie(movie: MovieEntity)
+       suspend fun addMovie(movie: MovieEntity)
 
       @Delete
-      fun removeMovie(movie: MovieEntity)
+      suspend fun removeMovie(movie: MovieEntity)
+
+      @Query("SELECT * FROM movies WHERE id = :movieId")
+      suspend fun getMovieById(movieId: Int): MovieEntity?
 }

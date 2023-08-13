@@ -12,6 +12,7 @@ import com.dolphinmobile.moviesapp.ui.ResourceState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,11 +32,11 @@ class DetailViewModel @Inject constructor(
                         }
 
                         is ResourceState.Success -> {
-                              _detailState.value = _detailState.value?.copy(movie = result.data)
+                              _detailState.value = _detailState.value?.copy(movie = result.data, isLoading = false)
                         }
 
                         is ResourceState.Error -> {
-                              _detailState.value = _detailState.value?.copy(error = result.message)
+                              _detailState.value = _detailState.value?.copy(error = result.message, isLoading = false)
                         }
                   }
             }
@@ -43,11 +44,15 @@ class DetailViewModel @Inject constructor(
       }
 
       fun addMovie() {
-//            addMovieDB(_detailState.value!!.movie!!)
+            viewModelScope.launch {
+                  addMovieDB(_detailState.value!!.movie!!)
+            }
       }
 
       fun removeMovie() {
-//            removeMovie(_detailState.value!!.movie!!)
+            viewModelScope.launch {
+                  removeMovie(_detailState.value!!.movie!!)
+            }
       }
 
 }

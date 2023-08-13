@@ -10,13 +10,13 @@ import com.dolphinmobile.moviesapp.databinding.ItemFavoriteBinding
 import com.dolphinmobile.moviesapp.databinding.ItemMovieBinding
 import com.dolphinmobile.moviesapp.domain.model.Movie
 import com.dolphinmobile.moviesapp.util.Constants
+import com.dolphinmobile.moviesapp.util.DateFormat.formatDate
 
 class MovieAdapter(
       private val viewType: Int,
       private val movies: MutableList<Movie> = mutableListOf(),
       private val itemSelected: (Int) -> Unit
 ): Adapter<RecyclerView.ViewHolder>() {
-
       override fun getItemViewType(position: Int): Int {
             return viewType
       }
@@ -30,6 +30,7 @@ class MovieAdapter(
       override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             when(holder){
                   is MovieVH -> holder.bind(movies[position])
+                  is FavoriteVH -> holder.bind(movies[position])
             }
       }
 
@@ -40,12 +41,13 @@ class MovieAdapter(
             notifyDataSetChanged()
       }
 
-      override fun getItemCount(): Int = if (viewType == 2) 10 else movies.size
+      override fun getItemCount(): Int = movies.size
+
       inner class MovieVH(private val binding: ItemMovieBinding): RecyclerView.ViewHolder(binding.root){
             fun bind(movie: Movie){
                   Glide.with(itemView).load("${Constants.IMAGE_URL}${movie.posterPath}").into(binding.ivMovie)
                   binding.tvTitleMovie.text = movie.title
-                  binding.tvDate.text = movie.releaseDate
+                  binding.tvDate.text = movie.releaseDate.formatDate("EEEE dd 'de' MMMM 'del' yyyy")
                   binding.root.setOnClickListener {
                         itemSelected.invoke(movie.id)
                   }
@@ -55,7 +57,7 @@ class MovieAdapter(
             fun bind(movie: Movie){
                   Glide.with(itemView).load("${Constants.IMAGE_URL}${movie.posterPath}").into(binding.ivMovie)
                   binding.tvTitleMovie.text = movie.title
-                  binding.tvDateRelease.text = movie.releaseDate
+                  binding.tvDateRelease.text = movie.releaseDate.formatDate("dd MMMM yyyy")
                   binding.root.setOnClickListener {
                         itemSelected.invoke(movie.id)
                   }

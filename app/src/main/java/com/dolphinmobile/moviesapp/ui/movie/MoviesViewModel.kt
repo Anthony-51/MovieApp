@@ -38,4 +38,21 @@ class MoviesViewModel @Inject constructor(
             }
                   .launchIn(viewModelScope)
       }
+
+      fun filterMovies(query: String){
+            if (_movieState.value!!.movies.isNotEmpty()){
+                  val movies = _movieState.value!!.movies.filter {
+                        it.title.lowercase().contains(query.lowercase(), ignoreCase = true)
+                  }
+                  if (movies.isNotEmpty()){
+                        _movieState.value = _movieState.value!!.copy(filterMovies = movies, error = "")
+                  }else{
+                        _movieState.value = _movieState.value!!.copy(error = "No hay resultados para :\n$query")
+                  }
+            }
+      }
+
+      fun resetMovies(){
+            _movieState.value = _movieState.value!!.copy(filterMovies = emptyList(), error = "")
+      }
 }

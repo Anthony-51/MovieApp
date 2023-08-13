@@ -24,6 +24,7 @@
             android:src="@drawable/ic_search_24"
             android:contentDescription="@string/app_name" />
         <EditText
+            android:id="@+id/et_filter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -33,6 +34,7 @@
             android:paddingHorizontal="5dp"
             tools:ignore="Autofill,LabelFor" />
         <ImageView
+            android:id="@+id/iv_reset_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_close_24"
@@ -49,4 +51,18 @@
         app:layout_constraintTop_toBottomOf="@id/sv_movie"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        android:visibility="gone"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sv_movie"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
