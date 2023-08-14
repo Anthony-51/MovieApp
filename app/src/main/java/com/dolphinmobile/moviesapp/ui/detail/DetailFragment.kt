@@ -74,6 +74,7 @@ class DetailFragment : Fragment() {
             }
             binding.tvGenres.text = genres
             binding.tvDate.text = movie.releaseDate.formatDate("dd MMMM yyyy")
+            binding.rbAverage.rating = movie.voteAverage.toFloat()
       }
 
 

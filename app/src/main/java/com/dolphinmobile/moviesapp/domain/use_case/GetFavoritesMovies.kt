@@ -1,9 +1,7 @@
 package com.dolphinmobile.moviesapp.domain.use_case
 
-import com.dolphinmobile.moviesapp.data.repository.MovieRepository
 import com.dolphinmobile.moviesapp.domain.model.toDomain
-import com.dolphinmobile.moviesapp.ui.ResourceState
-import kotlinx.coroutines.flow.flow
+import com.dolphinmobile.moviesapp.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 

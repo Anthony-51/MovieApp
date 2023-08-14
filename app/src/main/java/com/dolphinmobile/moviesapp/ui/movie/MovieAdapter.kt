@@ -48,6 +48,7 @@ class MovieAdapter(
                   Glide.with(itemView).load("${Constants.IMAGE_URL}${movie.posterPath}").into(binding.ivMovie)
                   binding.tvTitleMovie.text = movie.title
                   binding.tvDate.text = movie.releaseDate.formatDate("EEEE dd 'de' MMMM 'del' yyyy")
+                  binding.rbAverage.rating = movie.voteAverage.toFloat()
                   binding.root.setOnClickListener {
                         itemSelected.invoke(movie.id)
                   }

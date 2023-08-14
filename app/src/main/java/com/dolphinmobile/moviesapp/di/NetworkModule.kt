@@ -1,7 +1,11 @@
 package com.dolphinmobile.moviesapp.di
 
+import com.dolphinmobile.moviesapp.data.local.dao.MovieDao
 import com.dolphinmobile.moviesapp.util.Constants
 import com.dolphinmobile.moviesapp.data.remote.MovieApi
+import com.dolphinmobile.moviesapp.data.repository.MovieRepositoryImpl
+import com.dolphinmobile.moviesapp.data.repository.data_source.MovieDataSource
+import com.dolphinmobile.moviesapp.domain.repository.MovieRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,6 +34,12 @@ object NetworkModule {
       @Singleton
       fun provideMovieApi(retrofit: Retrofit): MovieApi {
             return retrofit.create(MovieApi::class.java)
+      }
+
+      @Provides
+      @Singleton
+      fun provideMovieRepository(ds: MovieDataSource, movieDao: MovieDao): MovieRepository {
+            return MovieRepositoryImpl(ds, movieDao)
       }
 
       private fun provideHttpClient(): OkHttpClient {

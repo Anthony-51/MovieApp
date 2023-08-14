@@ -71,6 +71,17 @@
             app:layout_constraintStart_toStartOf="@id/tv_date_description"
             app:layout_constraintTop_toBottomOf="@id/tv_date_description"
             />
+        <RatingBar
+            android:id="@+id/rb_average"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            style="?android:attr/ratingBarStyleSmall"
+            android:numStars="10"
+            android:rating="4.5"
+            android:layout_marginTop="8dp"
+            android:progressTint="#FFD54F"
+            app:layout_constraintTop_toBottomOf="@id/tv_date"
+            app:layout_constraintStart_toStartOf="@id/tv_date"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
